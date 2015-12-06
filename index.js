@@ -95,10 +95,11 @@ server.register(require('inert'), function (err) {
         var pushJSON = function(text, cb) {
           var options = {
             url: callback_url,
-
-            payload: {
-              "response_type": "in_channel",
-              text: text
+            body {
+              payload: {
+                "response_type": "in_channel",
+                text: text
+              }
             }
           }
           request.post(options, function(err, httpResponse, body) {

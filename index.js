@@ -78,6 +78,15 @@ server.register(require('inert'), function (err) {
         var channel_id = params.channel_id;
         var user_id = params.user_id;
 
+        var finish = function(traits, winner) {
+          var path = "https://api.myhumm.com/v2/radio?auth=5663cd50ae8c50e2638b456b&limit=1&moods=" + winner;
+          request.get({url: path}, function(err, httpResponse, body) {
+            if (err) console.log(err);
+            var data = JSON.parse(body).data_response[0].urls.youtube;
+            reply(data);
+          });
+        }
+
         teamModel.find({id: team_id}, function(err, docs) {
           if(err) console.log(err);
           var token = docs[0].token;
@@ -95,7 +104,7 @@ server.register(require('inert'), function (err) {
             });
             var messages = messages.slice(0, messages.length -1);
             var text = messages.join(" ");
-            watson(text, reply);
+            watson(text, finish);
           });
         });
       }

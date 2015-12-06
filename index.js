@@ -81,7 +81,7 @@ server.register(require('inert'), function (err) {
         var finish = function(traits, winner) {
           var path = "https://api.myhumm.com/v2/radio?auth=5663cd50ae8c50e2638b456b&limit=1&moods=" + winner;
           request.get({url: path}, function(err, httpResponse, body) {
-            if (err) console.log(err);
+            if (err) console.log("humm", err);
             var data = JSON.parse(body).data_response[0].urls.youtube;
             reply(data);
           });

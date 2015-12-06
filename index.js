@@ -96,12 +96,12 @@ server.register(require('inert'), function (err) {
           var options = {
             url: callback_url,
 
-            form: {
+            payload: {
               "response_type": "in_channel",
               text: text
             }
           }
-          request.get(options, function(err, httpResponse, body) {
+          request.post(options, function(err, httpResponse, body) {
             if(err) console.log(err);
             console.log(httpResponse);
             cb();

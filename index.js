@@ -81,45 +81,6 @@ server.register(require('inert'), function (err) {
 
         var finish = function(traits, winner) {
 
-          humm.init({
-            client_id: '5663cd50ae8c50e2638b456b',
-            client_secret: config.humm
-          });
-
-          humm.accessViaCodeGrant(code, function(authErr, authRes) {
-            console.log('------------- accessViaCodeGrant complete -------------');
-            console.log('authErr');
-            console.log(authErr);
-            console.log('AuthRes');
-            console.log(authRes);
-
-               if(!authErr && authRes) {
-                   /** Sample auth res:
-                    * { access_token: '565b0c78015f91c91a9882ea',
-                        expires_in: 2592000,
-                        token_type: 'Bearer',
-                        refresh_token: 'c4be4384dea6c19c7cc37206d2b6aac4c4be4384dea6c19c7cc37206d2b6aac4',
-                        scope: null }
-                    *
-                    */
-                   //set token before request
-                   humm.setAccessToken(authRes.access_token);
-                   //get current user
-                   humm.users.me(function(meErr, meRes){
-                       console.log('--------------------- users.me()----------');
-                       console.log(meErr);
-                       console.log(meRes);
-
-                       //send response back
-                       res.send({ auth: authRes,  me: meRes });
-                   });
-               }else {
-                   console.log(authErr);
-                   console.log(authRes);
-                 //  throw new Error('Authorization attempt failed');
-               }
-          });
-
           var path = "https://api.myhumm.com/v2/radio?auth=5663cd50ae8c50e2638b456b&limit=1&moods=" + winner;
           request.get({url: path, "rejectUnauthorized": false}, function(err, httpResponse, body) {
             if (err) console.log("humm", err);

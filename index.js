@@ -12,19 +12,19 @@ var teamSchema = mongoose.Schema({ name: String, token: String, id: String });
 teamSchema.plugin(findOneOrCreate);
 var teamModel = mongoose.model('team', teamSchema);
 
+mongoose.connect(config.path);
+
 // Create a server with a host and port
 const server = new Hapi.Server();
 
 var port = parseInt(process.env.PORT) || 8000;
 
 server.connection({
-    host: 'localhost',
+    host: '0.0.0.0',
     port: port
 });
 
 server.register(require('inert'), function (err) {
-
-    mongoose.connect(config.path);
 
     if (err) {
         throw err;
@@ -33,7 +33,7 @@ server.register(require('inert'), function (err) {
     // Add the route
     server.route({
         method: 'GET',
-        path:'/',
+        path: '/',
         handler: function (request, reply) {
             return reply.file('./index.html');
         }

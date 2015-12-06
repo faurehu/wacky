@@ -62,7 +62,7 @@ server.register(require('inert'), function (err) {
               name: data.team_name,
               id: data.team_id
             }
-            teamModel.findOneOrCreate({id: data.team_id}, team, function(err, team) {
+            teamModel.findOneOrCreate({id: data.team_id, token: team.token}, team, function(err, team) {
                 reply.file('./success.html');
             });
           });

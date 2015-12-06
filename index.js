@@ -36,7 +36,7 @@ server.register(require('inert'), function (err) {
         method: 'GET',
         path: '/',
         handler: function (request, reply) {
-            return reply.file('./index.html');
+            reply.file('./index.html');
         }
     });
 
@@ -78,36 +78,55 @@ server.register(require('inert'), function (err) {
         var team_id = params.team_id;
         var channel_id = params.channel_id;
         var user_id = params.user_id;
+        var callback_url = params.response_url;
+
+        reply({"response_type": "in_channel"});
 
         var finish = function(traits, winner) {
 
           var path = "https://api.myhumm.com/v2/radio?auth=5663cd50ae8c50e2638b456b&limit=1&moods=" + winner;
           request.get({url: path, "rejectUnauthorized": false}, function(err, httpResponse, body) {
             if (err) console.log("humm", err);
-            console.log(JSON.parse(body));
             var data = JSON.parse(body).data_response[0].urls.youtube;
-            reply(data);
+            pushJSON(data, function() {console.log('done')});
           });
         }
 
-        teamModel.find({id: team_id}, function(err, docs) {
-          if(err) console.log(err);
-          var token = docs[0].token;
-          var options = {
-            url: 'https://slack.com/api/channels.history?token=' + token + '&channel=' + channel_id + '&pretty=1'
-          }
+        var pushJSON = function(text, cb) {
+          options = {
+            url: callback_url,
 
+            form: {
+              "response_type": "in_channel",
+              text: text
+            }
+          }
           request.post(options, function(err, httpResponse, body) {
-            if(err) next(err);
-            var data = JSON.parse(body).messages;
-            var messages = data.map(function(message) {
-              if(message.user == user_id) {
-                return message.text;
-              }
+            if(err) console.log(err);
+            cb();
+          });
+        }
+
+        pushJSON("Got you! Currently analyzing your chat history!", function() {
+          teamModel.find({id: team_id}, function(err, docs) {
+            if(err) console.log(err);
+            var token = docs[0].token;
+            var options = {
+              url: 'https://slack.com/api/channels.history?token=' + token + '&channel=' + channel_id + '&pretty=1'
+            }
+
+            request.post(options, function(err, httpResponse, body) {
+              if(err) next(err);
+              var data = JSON.parse(body).messages;
+              var messages = data.map(function(message) {
+                if(message.user == user_id) {
+                  return message.text;
+                }
+              });
+              var messages = messages.slice(0, messages.length -1);
+              var text = messages.join(" ");
+              watson(text, finish, pushJSON);
             });
-            var messages = messages.slice(0, messages.length -1);
-            var text = messages.join(" ");
-            watson(text, finish);
           });
         });
       }

@@ -11,7 +11,7 @@ var personality_insights = watson.personality_insights({
   version: 'v2'
 });
 
-module.exports = function watson(text, cb) {
+module.exports = function watson(text, cb, push) {
   personality_insights.profile({
     text: text},
     function (err, response) {
@@ -26,14 +26,18 @@ module.exports = function watson(text, cb) {
           agreeableness: traits[3].percentage,
           emotional_range: traits[4].percentage,
         }
-        var highest = 0;
-        var winner = "happy";
-        for(var i = 0; i < moods.length; i++) {
-          var score = sim(traits, moods[i]);
-          if (score > highest) {
-            winner = moods[i].id;
+        push("Your score is... Openness: " + traits.openness + ". Conscientiousness: " + traits.conscientiousness + ". Extraversion: " + traits.extraversion + ". Agreeableness: " + traits.agreeableness + ". Emotional range: " + traits.emotional_range, function() {
+          var highest = 0;
+          var winner = "happy";
+          for(var i = 0; i < moods.length; i++) {
+            var score = sim(traits, moods[i]);
+            if (score > highest) {
+              winner = moods[i].id;
+            }
           }
-        }
-        cb(traits, winner);
+          push("We think your mood is " + winner + "! I am looking for an appropriate song now.", function() {
+            cb(traits, winner);
+          });
+        });
   });
 }

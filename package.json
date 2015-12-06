@@ -1,0 +1,18 @@
+{
+  "name": "slack-music",
+  "version": "1.0.0",
+  "description": "music recommendation on slack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inert": "^3.2.0",
+    "mongoose": "^4.2.9",
+    "mongoose-find-one-or-create": "^0.2.0",
+    "request": "^2.67.0",
+    "watson-developer-cloud": "^1.0.5"
+  }
+}

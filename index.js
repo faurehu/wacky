@@ -101,7 +101,7 @@ server.register(require('inert'), function (err) {
               text: text
             }
           }
-          request.post(options, function(err, httpResponse, body) {
+          request.get(options, function(err, httpResponse, body) {
             if(err) console.log(err);
             console.log(httpResponse);
             cb();

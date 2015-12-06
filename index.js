@@ -65,8 +65,8 @@ server.register(require('inert'), function (err) {
             teamModel.find({id: data.team_id}, function(err, steam) {
               var xteam = steam[0];
               if(xteam) {
-                steam.token = team.token;
-                steam.save();
+                xteam.token = team.token;
+                xteam.save();
                 reply.file('./success.html');
               } else {
                 teamModel.create(team, function(err, steam) {

@@ -5,8 +5,8 @@ const request = require('request');
 const config = require('./config')();
 const mongoose = require('mongoose');
 const findOneOrCreate = require('mongoose-find-one-or-create');
-// const watson = require('./watson');
-const watson = require('./tone');
+const watson = require('./watson');
+// const watson = require('./tone');
 
 var teamSchema = mongoose.Schema({ name: String, token: String, id: String });
 teamSchema.plugin(findOneOrCreate);

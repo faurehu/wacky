@@ -113,7 +113,9 @@ server.register(require('inert'), function (err) {
             }
             request.post(options, function(err, httpResponse, body) {
               if(err) next('FUC THIS SHIT', err);
-              var data = JSON.parse(body).messages;
+              var x = JSON.parse(body);
+              console.log('X', x);
+              var data = x.messages;
               var messages = data.map(function(message) {
                 if(message.user == user_id) {
                   return message.text;

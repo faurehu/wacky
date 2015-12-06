@@ -96,11 +96,8 @@ server.register(require('inert'), function (err) {
           var options = {
             url: callback_url,
             body: JSON.stringify({
-              payload: {
                   "response_type": "in_channel",
-                  text: text
-                }
-            })
+                  text: text})
           }
           request.post(options, function(err, httpResponse, body) {
             if(err) console.log(err);

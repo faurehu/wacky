@@ -34,7 +34,7 @@ function normalizePort(val) {
   return false;
 }
 
-var port = +process.env.PORT || '8000';
+var port = parseInt(process.env.PORT) || 8000;
 
 server.connection({
     host: 'localhost',

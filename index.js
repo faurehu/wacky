@@ -8,7 +8,7 @@ const findOneOrCreate = require('mongoose-find-one-or-create');
 // const watson = require('./watson');
 const watson = require('./tone');
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(config.path);
 
 var teamSchema = mongoose.Schema({ name: String, token: String, id: String });
 teamSchema.plugin(findOneOrCreate);

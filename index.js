@@ -16,9 +16,12 @@ var teamModel = mongoose.model('team', teamSchema);
 
 // Create a server with a host and port
 const server = new Hapi.Server();
+
+var port = normalizePort(process.env.PORT || '3000');
+
 server.connection({
     host: 'localhost',
-    port: 8000
+    port: port
 });
 
 server.register(require('inert'), function (err) {

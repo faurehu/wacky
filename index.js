@@ -93,7 +93,7 @@ server.register(require('inert'), function (err) {
         }
 
         var pushJSON = function(text, cb) {
-          options = {
+          var options = {
             url: callback_url,
 
             form: {

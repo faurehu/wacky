@@ -95,7 +95,7 @@ server.register(require('inert'), function (err) {
         var pushJSON = function(text, cb) {
           var options = {
             url: callback_url,
-            body {
+            body: {
               payload: {
                 "response_type": "in_channel",
                 text: text

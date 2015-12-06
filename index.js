@@ -17,6 +17,23 @@ var teamModel = mongoose.model('team', teamSchema);
 // Create a server with a host and port
 const server = new Hapi.Server();
 
+
+function normalizePort(val) {
+  let localPort = parseInt(val, 10);
+
+  if (isNaN(localPort)) {
+    // named pipe
+    return val;
+  }
+
+  if (localPort >= 0) {
+    // port number
+    return localPort;
+  }
+
+  return false;
+}
+
 var port = normalizePort(process.env.PORT || '3000');
 
 server.connection({

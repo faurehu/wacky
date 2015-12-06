@@ -47,7 +47,7 @@ server.register(require('inert'), function (err) {
               'client_id': config.slackClient,
               'client_secret': config.slackSecret,
               'code': code ,
-              'redirect_uri': 'http://localhost:8000/callback'
+              'redirect_uri': config.callback
             }
           }
           request.post(options, function(err, httpResponse, body) {

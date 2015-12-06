@@ -8,31 +8,12 @@ const findOneOrCreate = require('mongoose-find-one-or-create');
 // const watson = require('./watson');
 const watson = require('./tone');
 
-mongoose.connect(config.path);
-
 var teamSchema = mongoose.Schema({ name: String, token: String, id: String });
 teamSchema.plugin(findOneOrCreate);
 var teamModel = mongoose.model('team', teamSchema);
 
 // Create a server with a host and port
 const server = new Hapi.Server();
-
-
-function normalizePort(val) {
-  let localPort = parseInt(val, 10);
-
-  if (isNaN(localPort)) {
-    // named pipe
-    return val;
-  }
-
-  if (localPort >= 0) {
-    // port number
-    return localPort;
-  }
-
-  return false;
-}
 
 var port = parseInt(process.env.PORT) || 8000;
 
@@ -42,6 +23,8 @@ server.connection({
 });
 
 server.register(require('inert'), function (err) {
+
+    mongoose.connect(config.path);
 
     if (err) {
         throw err;
@@ -116,7 +99,7 @@ server.register(require('inert'), function (err) {
           });
         });
       }
-    })
+    });
 
     server.start(function (err) {
         if (err) {

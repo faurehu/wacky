@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "hapi": "^11.1.2",
+    "humm": "0.0.7",
     "inert": "^3.2.0",
     "mongoose": "^4.2.9",
     "mongoose-find-one-or-create": "^0.2.0",

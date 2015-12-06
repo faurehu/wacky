@@ -7,5 +7,5 @@ module.exports = {
     "password": process.env.IBM_PW
   },
   path: process.env.MONGOLAB_URI,
-  callback: 'https://slackhumm.herokuapp.com/callback'
+  callback: 'http://slackhumm.herokuapp.com/callback'
 }

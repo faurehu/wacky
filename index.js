@@ -62,8 +62,17 @@ server.register(require('inert'), function (err) {
               name: data.team_name,
               id: data.team_id
             }
-            teamModel.findOneOrCreate({id: data.team_id, token: team.token}, team, function(err, team) {
+            teamModel.find({id: data.team_id}, function(err, steam) {
+              var xteam = steam[0];
+              if(xteam) {
+                steam.token = team.token;
+                steam.save();
                 reply.file('./success.html');
+              } else {
+                teamModel.create(team, function(err, steam) {
+                  reply.file('./success.html');
+                });
+              }
             });
           });
         }

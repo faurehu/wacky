@@ -2,7 +2,7 @@
 
 const Hapi = require('hapi');
 const request = require('request');
-const config = require('./config');
+const config = require('./config')();
 const mongoose = require('mongoose');
 const findOneOrCreate = require('mongoose-find-one-or-create');
 // const watson = require('./watson');

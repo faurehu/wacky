@@ -1,7 +1,7 @@
 'use strict';
 
 var watson = require('watson-developer-cloud');
-var config = require('./config.js');
+var config = require('./config.js')();
 
 var tone_analyzer = watson.tone_analyzer({
   username: config.credentials.username,

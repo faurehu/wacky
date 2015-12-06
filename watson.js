@@ -1,7 +1,7 @@
 'use strict';
 
 var watson = require('watson-developer-cloud');
-var config = require('./config.js');
+var config = require('./config.js')();
 
 var personality_insights = watson.personality_insights({
   username: config.credentials.username,

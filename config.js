@@ -7,6 +7,6 @@ module.exports = function() {
       return require('./prodConfig');
 
     default:
-      return require('./devSettings');
+      return require('./devConfig');
   }
 }

@@ -27,7 +27,7 @@ module.exports = function watson(text, cb) {
           emotional_range: traits[4].percentage,
         }
         var highest = 0;
-        var winner = happy;
+        var winner = "happy";
         for(var i = 0; i < moods.length; i++) {
           var score = sim(traits, moods[i]);
           if (score > highest) {

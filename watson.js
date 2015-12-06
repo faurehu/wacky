@@ -28,7 +28,7 @@ module.exports = function watson(text, cb) {
         }
         var highest = 0;
         var winner = happy;
-        for(var i < 0; i < moods.length; i++) {
+        for(var i = 0; i < moods.length; i++) {
           var score = sim(traits, moods[i]);
           if (score > highest) {
             winner = moods[i].id;

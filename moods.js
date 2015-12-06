@@ -70,5 +70,5 @@ var Party = {
   emotional_range: 0.8
 };
 
-module.exports = [Angry, Cool, Dramatic, Energetic, Funny, Futuristic, Groovy, Happy,
+module.exports = [Angry, Cool, Dramatic, Funny, Futuristic, Happy,
 Intimate, Party];

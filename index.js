@@ -56,7 +56,6 @@ server.register(require('inert'), function (err) {
           }
           request.post(options, function(err, httpResponse, body) {
             if(err) console.log(err);
-            console.log(body);
             var data = JSON.parse(body);
             var team = {
               token: data.access_token,
@@ -101,7 +100,6 @@ server.register(require('inert'), function (err) {
           }
           request.post(options, function(err, httpResponse, body) {
             if(err) console.log(err);
-            console.log(httpResponse);
             cb();
           });
         }

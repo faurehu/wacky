@@ -113,9 +113,8 @@ server.register(require('inert'), function (err) {
             var options = {
               url: 'https://slack.com/api/channels.history?token=' + token + '&channel=' + channel_id + '&pretty=1'
             }
-
             request.post(options, function(err, httpResponse, body) {
-              if(err) next(err);
+              if(err) next('FUC THIS SHIT', err);
               var data = JSON.parse(body).messages;
               var messages = data.map(function(message) {
                 if(message.user == user_id) {
